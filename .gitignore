@@ -3,4 +3,5 @@ mimic-config.json
 data/
 .idea/
 saved/models
+saved/logs
 events.out.*
