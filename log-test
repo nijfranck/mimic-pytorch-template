@@ -1,0 +1,354 @@
+------------------------------------------------
+SGE Job ID: 48149671
+SGE Task ID: undefined
+Run on host: compe020.hpc.in.bmrc.ox.ac.uk
+Operating system: Linux
+Username: zou393
+Started at: Thu May 27 13:25:26 BST 2021
+------------------------------------------------
+Traceback (most recent call last):
+  File "/well/papiez/users/zou393/Documents/DPhil/script/train.py", line 6, in <module>
+    import model.loss as module_loss
+  File "/gpfs2/well/papiez/users/zou393/Documents/DPhil/script/model/loss.py", line 13, in <module>
+    def cross_entropy_weights(output, target, weights=torch.FloatTensor([1, 4]).cuda()):
+  File "/users/papiez/zou393/miniconda3/envs/mimic/lib/python3.7/site-packages/torch/cuda/__init__.py", line 196, in _lazy_init
+    _check_driver()
+  File "/users/papiez/zou393/miniconda3/envs/mimic/lib/python3.7/site-packages/torch/cuda/__init__.py", line 101, in _check_driver
+    http://www.nvidia.com/Download/index.aspx""")
+AssertionError: 
+Found no NVIDIA driver on your system. Please check that you
+have an NVIDIA GPU and installed a driver from
+http://www.nvidia.com/Download/index.aspx
+------------------------------------------------
+SGE Job ID: 48149671
+SGE Task ID: undefined
+Run on host: compe020.hpc.in.bmrc.ox.ac.uk
+Operating system: Linux
+Username: zou393
+End at: Thu May 27 13:25:30 BST 2021
+------------------------------------------------
+------------------------------------------------
+SGE Job ID: 48149802
+SGE Task ID: undefined
+Run on host: compe020.hpc.in.bmrc.ox.ac.uk
+Operating system: Linux
+Username: zou393
+Started at: Thu May 27 13:28:52 BST 2021
+------------------------------------------------
+(12299, 28)
+train 11070 valid 1229
+Valid:  1229
+ResNet(
+  (conv1): Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+  (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (layer1): Sequential(
+    (0): BasicBlock(
+      (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): BasicBlock(
+      (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlock(
+      (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlock(
+      (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer4): Sequential(
+    (0): BasicBlock(
+      (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (avgpool): AvgPool2d(kernel_size=7, stride=1, padding=0)
+  (fc): Sequential(
+    (0): Linear(in_features=512, out_features=256, bias=True)
+    (1): ReLU()
+    (2): Dropout(p=0.2, inplace=False)
+    (3): Linear(in_features=256, out_features=2, bias=True)
+  )
+)
+Warning: There's no GPU available on this machine,training will be performed on CPU.
+Device is cpu and device ids is []
+/users/papiez/zou393/.local/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/users/papiez/zou393/.local/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/users/papiez/zou393/.local/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/users/papiez/zou393/.local/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/users/papiez/zou393/.local/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/users/papiez/zou393/.local/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Train Epoch: 1 [0/11070 (0%)] Loss: 0.642791
+Train Epoch: 1 [512/11070 (5%)] Loss: 0.731503
+Train Epoch: 1 [1024/11070 (9%)] Loss: 0.637399
+Train Epoch: 1 [1536/11070 (14%)] Loss: 0.627539
+Train Epoch: 1 [2048/11070 (19%)] Loss: 0.715640
+Train Epoch: 1 [2560/11070 (23%)] Loss: 0.638704
+Train Epoch: 1 [3072/11070 (28%)] Loss: 0.664151
+Train Epoch: 1 [3584/11070 (32%)] Loss: 0.649517
+Train Epoch: 1 [4096/11070 (37%)] Loss: 0.631810
+Train Epoch: 1 [4608/11070 (42%)] Loss: 0.664586
+Train Epoch: 1 [5120/11070 (46%)] Loss: 0.604523
+Train Epoch: 1 [5632/11070 (51%)] Loss: 0.652558
+Train Epoch: 1 [6144/11070 (56%)] Loss: 0.631995
+Train Epoch: 1 [6656/11070 (60%)] Loss: 0.715080
+Train Epoch: 1 [7168/11070 (65%)] Loss: 0.633155
+Train Epoch: 1 [7680/11070 (69%)] Loss: 0.655880
+Train Epoch: 1 [8192/11070 (74%)] Loss: 0.652140
+Train Epoch: 1 [8704/11070 (79%)] Loss: 0.617584
+Train Epoch: 1 [9216/11070 (83%)] Loss: 0.600082
+Train Epoch: 1 [9728/11070 (88%)] Loss: 0.605934
+Train Epoch: 1 [10240/11070 (93%)] Loss: 0.605954
+Train Epoch: 1 [10752/11070 (97%)] Loss: 0.670116
+    epoch          : 1
+    loss           : 0.6471289630570164
+    accuracy       : 0.6399490723475667
+    precision      : 0.5260534807626511
+    recall         : 0.2035134901292996
+    balanced_accuracy: 0.5495578901926604
+    f1score        : 0.2657232703034693
+    roc_auc        : 0.5495578901926604
+    val_loss       : 0.9089043229818344
+    val_accuracy   : 0.4027043269230769
+    val_precision  : 0.40296354351293867
+    val_recall     : 0.9917979197214579
+    val_balanced_accuracy: 0.49722300167257566
+    val_f1score    : 0.5692884286404379
+    val_roc_auc    : 0.49722300167257566
+Saving checkpoint: saved/models/test-job/0527_132854/checkpoint-epoch1.pth ...
+Saving current best: model_best.pth ...
+Last improvement: Epoch 1  with  0.49722300167257566
+This epoch took: 0:24:12.570790
+Train Epoch: 2 [0/11070 (0%)] Loss: 0.652965
+Train Epoch: 2 [512/11070 (5%)] Loss: 0.614844
+Train Epoch: 2 [1024/11070 (9%)] Loss: 0.647007
+Train Epoch: 2 [1536/11070 (14%)] Loss: 0.547012
+Train Epoch: 2 [2048/11070 (19%)] Loss: 0.708333
+Train Epoch: 2 [2560/11070 (23%)] Loss: 0.566355
+Train Epoch: 2 [3072/11070 (28%)] Loss: 0.635468
+Train Epoch: 2 [3584/11070 (32%)] Loss: 0.615870
+Train Epoch: 2 [4096/11070 (37%)] Loss: 0.665358
+Train Epoch: 2 [4608/11070 (42%)] Loss: 0.597818
+Train Epoch: 2 [5120/11070 (46%)] Loss: 0.574461
+Train Epoch: 2 [5632/11070 (51%)] Loss: 0.678031
+Train Epoch: 2 [6144/11070 (56%)] Loss: 0.699478
+Train Epoch: 2 [6656/11070 (60%)] Loss: 0.609205
+Train Epoch: 2 [7168/11070 (65%)] Loss: 0.630619
+Train Epoch: 2 [7680/11070 (69%)] Loss: 0.545604
+Train Epoch: 2 [8192/11070 (74%)] Loss: 0.623329
+Train Epoch: 2 [8704/11070 (79%)] Loss: 0.649964
+Train Epoch: 2 [9216/11070 (83%)] Loss: 0.665572
+Train Epoch: 2 [9728/11070 (88%)] Loss: 0.592999
+Train Epoch: 2 [10240/11070 (93%)] Loss: 0.683395
+Train Epoch: 2 [10752/11070 (97%)] Loss: 0.602358
+    epoch          : 2
+    loss           : 0.62460629736757
+    accuracy       : 0.6613398517620734
+    precision      : 0.594821215990394
+    recall         : 0.2835920112867123
+    balanced_accuracy: 0.5843711020261245
+    f1score        : 0.3722563813340363
+    roc_auc        : 0.5843711020261245
+    val_loss       : 0.6447468757629394
+    val_accuracy   : 0.6269230769230769
+    val_precision  : 0.7075
+    val_recall     : 0.12147863904315517
+    val_balanced_accuracy: 0.5482524960812907
+    val_f1score    : 0.20428442875223723
+    val_roc_auc    : 0.5482524960812907
+Saving checkpoint: saved/models/test-job/0527_132854/checkpoint-epoch2.pth ...
+Saving current best: model_best.pth ...
+Last improvement: Epoch 2  with  0.5482524960812907
+This epoch took: 0:23:58.196323
+Train Epoch: 3 [0/11070 (0%)] Loss: 0.622855
+Train Epoch: 3 [512/11070 (5%)] Loss: 0.710666
+Train Epoch: 3 [1024/11070 (9%)] Loss: 0.600819
+Train Epoch: 3 [1536/11070 (14%)] Loss: 0.601886
+Train Epoch: 3 [2048/11070 (19%)] Loss: 0.677428
+Train Epoch: 3 [2560/11070 (23%)] Loss: 0.626503
+Train Epoch: 3 [3072/11070 (28%)] Loss: 0.614340
+Train Epoch: 3 [3584/11070 (32%)] Loss: 0.657192
+Train Epoch: 3 [4096/11070 (37%)] Loss: 0.548776
+Train Epoch: 3 [4608/11070 (42%)] Loss: 0.656867
+Train Epoch: 3 [5120/11070 (46%)] Loss: 0.640002
+Train Epoch: 3 [5632/11070 (51%)] Loss: 0.591438
+Train Epoch: 3 [6144/11070 (56%)] Loss: 0.620695
+Train Epoch: 3 [6656/11070 (60%)] Loss: 0.691011
+Train Epoch: 3 [7168/11070 (65%)] Loss: 0.604339
+Train Epoch: 3 [7680/11070 (69%)] Loss: 0.568176
+Train Epoch: 3 [8192/11070 (74%)] Loss: 0.616376
+Train Epoch: 3 [8704/11070 (79%)] Loss: 0.640526
+Train Epoch: 3 [9216/11070 (83%)] Loss: 0.627136
+Train Epoch: 3 [9728/11070 (88%)] Loss: 0.611615
+Train Epoch: 3 [10240/11070 (93%)] Loss: 0.603692
+Train Epoch: 3 [10752/11070 (97%)] Loss: 0.592004
+    epoch          : 3
+    loss           : 0.6179039213009653
+    accuracy       : 0.6673882388588477
+    precision      : 0.611940922332796
+    recall         : 0.29670108719412175
+    balanced_accuracy: 0.5923294813655706
+    f1score        : 0.39129844972063804
+    roc_auc        : 0.5923294813655706
+    val_loss       : 0.6072025388479233
+    val_accuracy   : 0.680829326923077
+    val_precision  : 0.6567583357960596
+    val_recall     : 0.4460783904924496
+    val_balanced_accuracy: 0.6424422780963646
+    val_f1score    : 0.5259710337437674
+    val_roc_auc    : 0.6424422780963646
+Saving checkpoint: saved/models/test-job/0527_132854/checkpoint-epoch3.pth ...
+Saving current best: model_best.pth ...
+Last improvement: Epoch 3  with  0.6424422780963646
+This epoch took: 0:23:43.596548
+Train Epoch: 4 [0/11070 (0%)] Loss: 0.626923
+Train Epoch: 4 [512/11070 (5%)] Loss: 0.650175
+Train Epoch: 4 [1024/11070 (9%)] Loss: 0.636221
+Train Epoch: 4 [1536/11070 (14%)] Loss: 0.553364
+Train Epoch: 4 [2048/11070 (19%)] Loss: 0.691880
+Train Epoch: 4 [2560/11070 (23%)] Loss: 0.574343
+Train Epoch: 4 [3072/11070 (28%)] Loss: 0.643363
+Train Epoch: 4 [3584/11070 (32%)] Loss: 0.700098
+Train Epoch: 4 [4096/11070 (37%)] Loss: 0.629881
+Train Epoch: 4 [4608/11070 (42%)] Loss: 0.573002
+Train Epoch: 4 [5120/11070 (46%)] Loss: 0.629170
+Train Epoch: 4 [5632/11070 (51%)] Loss: 0.612895
+Train Epoch: 4 [6144/11070 (56%)] Loss: 0.665336
+Train Epoch: 4 [6656/11070 (60%)] Loss: 0.566545
+Train Epoch: 4 [7168/11070 (65%)] Loss: 0.629063
+Train Epoch: 4 [7680/11070 (69%)] Loss: 0.593298
+Train Epoch: 4 [8192/11070 (74%)] Loss: 0.610309
+Train Epoch: 4 [8704/11070 (79%)] Loss: 0.627258
+Train Epoch: 4 [9216/11070 (83%)] Loss: 0.557330
+Train Epoch: 4 [9728/11070 (88%)] Loss: 0.597889
+Train Epoch: 4 [10240/11070 (93%)] Loss: 0.628197
+Train Epoch: 4 [10752/11070 (97%)] Loss: 0.619576
+    epoch          : 4
+    loss           : 0.6115059322015398
+    accuracy       : 0.6766909845235876
+    precision      : 0.6251478987486698
+    recall         : 0.33044101017595984
+    balanced_accuracy: 0.6069390820412275
+    f1score        : 0.42471218922764137
+    roc_auc        : 0.6069390820412274
+    val_loss       : 0.618325474858284
+    val_accuracy   : 0.673016826923077
+    val_precision  : 0.6286010224725396
+    val_recall     : 0.46620471586461576
+    val_balanced_accuracy: 0.6387271990491233
+    val_f1score    : 0.5310442024033845
+    val_roc_auc    : 0.6387271990491233
+Saving checkpoint: saved/models/test-job/0527_132854/checkpoint-epoch4.pth ...
+Last improvement: Epoch 3  with  0.6424422780963646
+This epoch took: 0:24:22.639488
+Train Epoch: 5 [0/11070 (0%)] Loss: 0.568757
+Train Epoch: 5 [512/11070 (5%)] Loss: 0.636750
+Train Epoch: 5 [1024/11070 (9%)] Loss: 0.641270
+Train Epoch: 5 [1536/11070 (14%)] Loss: 0.579390
+Train Epoch: 5 [2048/11070 (19%)] Loss: 0.610012
+Train Epoch: 5 [2560/11070 (23%)] Loss: 0.547630
+Train Epoch: 5 [3072/11070 (28%)] Loss: 0.628684
+Train Epoch: 5 [3584/11070 (32%)] Loss: 0.565932
+Train Epoch: 5 [4096/11070 (37%)] Loss: 0.623527
+Train Epoch: 5 [4608/11070 (42%)] Loss: 0.713346
+Train Epoch: 5 [5120/11070 (46%)] Loss: 0.594664
+Train Epoch: 5 [5632/11070 (51%)] Loss: 0.608406
+Train Epoch: 5 [6144/11070 (56%)] Loss: 0.644295
+Train Epoch: 5 [6656/11070 (60%)] Loss: 0.531236
+Train Epoch: 5 [7168/11070 (65%)] Loss: 0.599440
+Train Epoch: 5 [7680/11070 (69%)] Loss: 0.565700
+Train Epoch: 5 [8192/11070 (74%)] Loss: 0.586296
+Train Epoch: 5 [8704/11070 (79%)] Loss: 0.629462
+Train Epoch: 5 [9216/11070 (83%)] Loss: 0.572342
+Train Epoch: 5 [9728/11070 (88%)] Loss: 0.629623
+Train Epoch: 5 [10240/11070 (93%)] Loss: 0.623068
+Train Epoch: 5 [10752/11070 (97%)] Loss: 0.532011
+    epoch          : 5
+    loss           : 0.6047369699946717
+    accuracy       : 0.6796918702218908
+    precision      : 0.6156960338001064
+    recall         : 0.3652425300936244
+    balanced_accuracy: 0.6157860527653335
+    f1score        : 0.45245472444895896
+    roc_auc        : 0.6157860527653335
+    val_loss       : 1.0681943088769912
+    val_accuracy   : 0.43485576923076924
+    val_precision  : 0.4112194074665788
+    val_recall     : 0.9430323419467154
+    val_balanced_accuracy: 0.5199079059584241
+    val_f1score    : 0.5699208116307459
+    val_roc_auc    : 0.5199079059584241
+Saving checkpoint: saved/models/test-job/0527_132854/checkpoint-epoch5.pth ...
+Last improvement: Epoch 3  with  0.6424422780963646
+This epoch took: 0:24:24.483787
+------------------------------------------------
+SGE Job ID: 48149802
+SGE Task ID: undefined
+Run on host: compe020.hpc.in.bmrc.ox.ac.uk
+Operating system: Linux
+Username: zou393
+End at: Thu May 27 15:29:36 BST 2021
+------------------------------------------------

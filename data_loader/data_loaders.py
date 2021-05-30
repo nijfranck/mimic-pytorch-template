@@ -21,7 +21,7 @@ class MimicPneumoniaDataloader(BaseDataLoader):
     """
     MIMIC-CXR-JPG data loading
     """
-    def __init__(self, csv_name, batch_size, shuffle=True, validation_split=0.1, num_workers=4, training=True, input_size=200,
+    def __init__(self, csv_name, batch_size, shuffle=True, validation_split=0.1, num_workers=4, training=True, input_size=224,
                  norm_mean=(0.5, ), norm_std=(0.5, )):
         trsfm = transforms.Compose([transforms.Resize((input_size,input_size)),
                                       transforms.RandomHorizontalFlip(),

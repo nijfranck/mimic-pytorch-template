@@ -1,4 +1,7 @@
+import itertools
 import json
+import matplotlib.pyplot as plt
+import numpy as np
 import os
 import torch
 import pandas as pd
@@ -17,11 +20,10 @@ def split_train_test(csv_filename, positions='PA'):
     """
     print(csv_filename)
     df = pd.read_csv(csv_filename)
-    print(df.head())
+    print('shape: ', df.shape)
     df = df.drop('index', axis=1)
     df = df.reset_index(drop=True)
     print(df.head())
-    df = df[(df['ViewPosition'] == positions)]
     non_pneumonia = df[df['Pneumonia'] == 0.0].reset_index(drop=True)
     pneumonia = df[df['Pneumonia'] == 1.0].reset_index(drop=True)
     result = pd.concat([non_pneumonia, pneumonia], ignore_index=True, sort=False)
@@ -31,6 +33,8 @@ def split_train_test(csv_filename, positions='PA'):
     # training, test set
     y = result['class']
     data_train, data_test = train_test_split(result, test_size=0.1, random_state=101, stratify=y)
+    print('data_train', data_train.shape)
+    print('data_test', data_test.shape)
     data_train = data_train.reset_index(drop=True)
     data_test = data_test.reset_index(drop=True)
     data_train.to_csv('data/train.csv', index=False)
@@ -39,9 +43,9 @@ def split_train_test(csv_filename, positions='PA'):
 
 def load_csv(csv_filename):
     arr = os.listdir('data')
-    print(arr)
+    #print(arr)
     df = pd.read_csv('data/' + csv_filename)
-    print(df.head())
+    print(df.shape)
     return df
 
 
@@ -81,6 +85,34 @@ def prepare_device(gpu_number, n_gpu_use):
     device = torch.device('cuda:'+ str(gpu_number) if n_gpu_use > 0 else 'cpu')
     list_ids = list(range(n_gpu_use))
     return device, list_ids
+
+
+def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix', cmap=plt.cm.Blues,
+                          save_directory=None):
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt), horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.savefig(save_directory)
+
 class MetricTracker:
     def __init__(self, *keys, writer=None):
         self.writer = writer

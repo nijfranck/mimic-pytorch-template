@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 from base import BaseModel
+from torchvision import models
 
 
 def _make_divisible(v, divisor, min_value=None):
@@ -170,3 +171,38 @@ class MnistModel(BaseModel):
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
+
+def buildResNet(num_layers, num_classes, pretrained=False):
+    # get the stock PyTorch ResNet50 model w/ pretrained set to True
+    if num_layers == 18:
+        model = models.resnet18(pretrained=pretrained)
+    elif num_layers == 34:
+        model = models.resnet34(pretrained=pretrained)
+    elif num_layers == 50:
+        model = models.resnet50(pretrained=pretrained)
+    elif num_layers == 101:
+        model = models.resnet101(pretrained=pretrained)
+    elif num_layers == 152:
+        model = models.resnet152(pretrained=pretrained)
+
+    #     # freeze all model parameters so we don’t backprop through them during training (except the FC layer that will be replaced)
+    #     for param in model.parameters():
+    #         param.requires_grad = False
+    #     # end for
+
+    # !!!!!! this line is specific to the 3 channel to one channel change, other lines in this function are the same as before !!!!!!
+    # change 1st conv layer from 3 channel to 1 channel
+    model.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+
+    # the last (fully connected) layer per the number of classes
+    # first, get/save the current number of input features to the fc layer
+    numFcInputs = model.fc.in_features
+    # now replace the fc layer with minor changes, and using our number of classes
+    model.fc = nn.Sequential(nn.Linear(numFcInputs, 256),
+                             nn.ReLU(),
+                             nn.Dropout(0.2),
+                             nn.Linear(256, num_classes))
+
+    return model
+
+

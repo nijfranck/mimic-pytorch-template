@@ -6,6 +6,7 @@ import model.loss as module_loss
 import model.metric as module_metric
 import model.model as module_arch
 from parse_config import ConfigParser
+from utils import plot_confusion_matrix
 
 
 def main(config):
@@ -18,7 +19,7 @@ def main(config):
         shuffle=False,
         validation_split=0.0,
         training=False,
-        num_workers=2
+        num_workers=4
     )
 
     # build model architecture
@@ -65,8 +66,15 @@ def main(config):
     log.update({
         met.__name__: total_metrics[i].item() / n_samples for i, met in enumerate(metric_fns)
     })
+    log.update({
+        'classification_report': getattr(module_metric, 'classification_rep')(output, target,['Non-Pneumonia', 'Pneumonia'])
+    })
+    cm = getattr(module_metric, 'confusion_mx')(output, target)
+    log.update({
+        'confusion_matrix': cm
+    })
     logger.info(log)
-
+    plot_confusion_matrix(cm, classes=['Non-Pneumonia', 'Pneumonia'], save_directory=config.log_dir)
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser(description='PyTorch Template')

@@ -60,7 +60,7 @@ class BaseTrainer:
         """
         Full training logic
         """
-
+        last_best_epoch = 0
         not_improved_count = 0
         for epoch in range(self.start_epoch, self.epochs + 1):
             t0 = time.time()
@@ -76,6 +76,7 @@ class BaseTrainer:
 
             # evaluate model performance according to configured metric, save best checkpoint as model_best
             best = False
+
             if self.mnt_mode != 'off':
                 try:
                     # check whether model performance improved or not, according to specified metric(mnt_metric)
@@ -91,6 +92,7 @@ class BaseTrainer:
                     self.mnt_best = log[self.mnt_metric]
                     not_improved_count = 0
                     best = True
+                    last_best_epoch = epoch
                 else:
                     not_improved_count += 1
 
@@ -101,7 +103,7 @@ class BaseTrainer:
 
             if epoch % self.save_period == 0:
                 self._save_checkpoint(epoch, save_best=best)
-
+            print('Last improvement: Epoch', last_best_epoch, ' with ', self.mnt_best)
             print('This epoch took: {}'.format(str(datetime.timedelta(seconds = time.time() - t0))))
 
     def _save_checkpoint(self, epoch, save_best=False):

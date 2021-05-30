@@ -1,5 +1,7 @@
 import torch
-from sklearn.metrics import f1_score, recall_score, precision_score, roc_auc_score, balanced_accuracy_score
+import matplotlib.pyplot as plt
+from sklearn.metrics import f1_score, recall_score, precision_score, roc_auc_score, balanced_accuracy_score, \
+    classification_report, confusion_matrix
 
 
 def accuracy(output, target):
@@ -34,7 +36,7 @@ def recall(output, target):
         pred = torch.argmax(output, dim=1)
         assert pred.shape[0] == len(target)
 
-    return recall_score(target.cpu(), pred.cpu())
+    return recall_score(target.cpu(), pred.cpu(), zero_division=0)
 
 
 def precision(output, target):
@@ -58,7 +60,20 @@ def roc_auc(output, target):
         pred = torch.argmax(output, dim=1)
         assert pred.shape[0] == len(target)
     try:
-        result = roc_auc_score(target.cpu(), pred.cpu())
+        return roc_auc_score(target.cpu(), pred.cpu())
     except ValueError:
         pass
-    return result
+
+
+def classification_rep(output, target, target_names):
+    with torch.no_grad():
+        pred = torch.argmax(output, dim=1)
+        assert pred.shape[0] == len(target)
+        return classification_report(target.cpu(), pred.cpu(), target_names=target_names)
+
+
+def confusion_mx(output, target):
+    with torch.no_grad():
+        pred = torch.argmax(output, dim=1)
+        assert pred.shape[0] == len(target)
+        return confusion_matrix(target.cpu(), pred.cpu())
