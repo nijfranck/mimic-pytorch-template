@@ -10,6 +10,15 @@ from itertools import repeat
 from collections import OrderedDict
 from sklearn.model_selection import train_test_split
 
+
+import email, smtplib, ssl
+
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+
 def split_train_test(csv_filename, positions='PA'):
     """
     Load MIMIC and decouple it into train and test, then save it to a data folder.
@@ -43,9 +52,7 @@ def split_train_test(csv_filename, positions='PA'):
 
 def load_csv(csv_filename):
     arr = os.listdir('data')
-    #print(arr)
     df = pd.read_csv('data/' + csv_filename)
-    print(df.shape)
     return df
 
 
@@ -112,6 +119,66 @@ def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix'
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.savefig(save_directory)
+
+def send_email(sender_email, receiver_email, subject, filename):
+
+    print(filename)
+    message = MIMEMultipart()
+    message["Subject"] = subject
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    body = "This is an email with attachment of your recent GPU run"
+    password = os.environ.get('password')
+
+    # Add body to email
+    message.attach(MIMEText(body, "plain"))
+
+    filename = filename  # In same directory as script
+
+    # Open PDF file in binary mode
+    with open(filename, "rb") as attachment:
+        # Add file as application/octet-stream
+        # Email client can usually download this automatically as attachment
+        part = MIMEBase("application", "octet-stream")
+        part.set_payload(attachment.read())
+
+    # Encode file in ASCII characters to send by email
+    encoders.encode_base64(part)
+
+    # Add header as key/value pair to attachment part
+    part.add_header(
+        "Content-Disposition",
+        f"attachment; filename= {filename}",
+    )
+
+    # Add attachment to message and convert message to string
+    message.attach(part)
+    text = message.as_string()
+
+    # Log in to server using secure context and send email
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, text)
+
+
+    # Create the plain-text and HTML version of your message
+    text = """\
+    Hi,
+    How are you?
+    Real Python has many great tutorials:
+    www.realpython.com"""
+    html = """\
+    <html>
+      <body>
+        <p>Hi,<br>
+           How are you?<br>
+           <a href="http://www.realpython.com">Real Python</a> 
+           has many great tutorials.
+        </p>
+      </body>
+    </html>
+    """
 
 class MetricTracker:
     def __init__(self, *keys, writer=None):

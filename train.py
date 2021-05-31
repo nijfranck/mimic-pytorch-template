@@ -9,6 +9,7 @@ import model.model as module_arch
 from parse_config import ConfigParser
 from trainer import Trainer
 from utils import prepare_device
+from utils import send_email
 
 
 # fix random seeds for reproducibility
@@ -55,14 +56,12 @@ def main(config):
                       lr_scheduler=lr_scheduler)
 
     trainer.train()
-
+    send_email('nijfranck.ai@gmail.com', 'nijimbere.franck@gmail.com', config['name'], config.log_dir / 'info.log')
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser(description='PyTorch Template')
     args.add_argument('-c', '--config', default=None, type=str,
                       help='config file path (default: None)')
-    args.add_argument('-t', '--type', default=None, type=str,
-                      help='train or test (default: None)')
     args.add_argument('-r', '--resume', default=None, type=str,
                       help='path to latest checkpoint (default: None)')
     args.add_argument('-d', '--device', default=None, type=str,
